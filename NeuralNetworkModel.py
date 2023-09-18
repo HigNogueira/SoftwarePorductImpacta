@@ -21,26 +21,42 @@ def preprocess_data(train_data, test_data):
     train_data['combined_text'] = train_data['movie_name'] + ' ' + train_data['synopsis'] + ' ' + train_data['genre']
     test_data['combined_text'] = test_data['movie_name'] + ' ' + test_data['synopsis']
 
+    # Obtenha a lista de todos os gêneros únicos em ambos os conjuntos de treinamento e teste
+    all_genres = set()
+    for genres in train_data['genre']:
+        all_genres.update(genres.split(', '))
+    for genres in test_data['genre']:
+        all_genres.update(genres.split(', '))
+
+    # Mapear gêneros únicos para índices
+    genre_to_index = {genre: i for i, genre in enumerate(all_genres)}
+
     # Tokenize as avaliações de filmes usando CountVectorizer
     vectorizer = CountVectorizer(max_features=200)
     X_train = vectorizer.fit_transform(train_data['combined_text'])
     X_test = vectorizer.transform(test_data['combined_text'])
 
     # Transforme as matrizes esparsas em matrizes densas
-    X_train = X_train.toarray()
-    X_test = X_test.toarray()
+    X_train = X_train.astype(np.float32).toarray()  # Altere o tipo de dado para float32
+    X_test = X_test.astype(np.float32).toarray()    # Altere o tipo de dado para float32
 
-    # Converter rótulos em sequências de tokens
-    label_tokenizer = CountVectorizer(max_features=200)
-    y_train = label_tokenizer.fit_transform(train_labels.apply(lambda x: ' '.join(map(str, x)), axis=1)).toarray()
-    y_test = label_tokenizer.transform(test_labels.apply(lambda x: ' '.join(map(str, x)), axis=1)).toarray()
+    # Crie vetores de gênero para cada filme
+    y_train = np.zeros((len(train_data), len(all_genres)), dtype=int)
+    y_test = np.zeros((len(test_data), len(all_genres)), dtype=int)
 
+    for i, genres in enumerate(train_data['genre']):
+        for genre in genres.split(', '):
+            y_train[i, genre_to_index[genre]] = 1
+
+    for i, genres in enumerate(test_data['genre']):
+        for genre in genres.split(', '):
+            y_test[i, genre_to_index[genre]] = 1
 
     return X_train, y_train, X_test, y_test
 
 # Função para criar um DataLoader
 def create_dataloader(X, y, batch_size=32, shuffle=True):
-    data = TensorDataset(torch.tensor(X, dtype=torch.long), torch.tensor(y, dtype=torch.float32))
+    data = TensorDataset(torch.tensor(X, dtype=torch.float32), torch.tensor(y, dtype=torch.float32))
     loader = DataLoader(data, batch_size=batch_size, shuffle=shuffle)
     return loader
 
@@ -88,7 +104,14 @@ if __name__ == "__main__":
     train_loader = create_dataloader(X_train, y_train, batch_size=32, shuffle=True)
 
     # Definir a arquitetura da rede neural
-    model = NeuralNetwork(vocab_size=200, embedding_dim=100, hidden_dim=64)
+    vocab_size = X_train.shape[1]
+    num_genres = y_train.shape[1]
+    model = nn.Sequential(
+        nn.Linear(vocab_size, 100),
+        nn.ReLU(),
+        nn.Linear(100, num_genres),
+        nn.Sigmoid()
+    )
 
     # Definir função de perda e otimizador
     criterion = nn.BCELoss()
