@@ -9,7 +9,24 @@ MATÉRIA: SOFTWARE PRODUCT, ANALYSIS, SPECIFICATION, PROJECT E IMPLEMENTATION
 
 PROJETO INDIVIDUAL PARA A MATÉRIA SOFTWARE PRODUCT
 
-DESCRIÇÃO: Modelo de análise de dados no qual introduzimos uma rede neural de aprendizado de máquina para realizar previsões com base nos dados dados de filmes. A idéia é fazer com que o modelo consiga prever o gênero de cada tipo de filme (ação, comédia, suspense, etc) com base na coluna Sinopse contida na planilha de dados de treino.
+Projeto: Desenvolvimento de uma plataforma de streaming de vídeos que inclui análise de dados para categorização automática de títulos de filmes.
+
+Descrição:
+Este projeto visa criar uma plataforma de streaming de vídeos que ofereça uma experiência personalizada aos usuários. Um dos principais recursos desta plataforma é a capacidade de categorizar automaticamente os títulos de filmes com base em informações textuais, como sinopses e metadados, permitindo uma melhor organização e recomendação de conteúdo.
+
+Fluxo de Trabalho:
+
+Coleta de Dados: Os dados brutos, incluindo informações sobre títulos de filmes, sinopses e outros metadados, são coletados de diversas fontes.
+
+Pré-Processamento de Dados: As informações coletadas são processadas e limpas para eliminar inconsistências e formatadas de maneira adequada. Isso pode envolver o uso de ferramentas como planilhas Excel.
+
+Análise de Dados: Cientistas de dados usam técnicas de processamento de linguagem natural (NLP) e aprendizado de máquina para analisar os dados textuais e classificar automaticamente os títulos de filmes em categorias relevantes, como gênero, classificação etária, etc.
+
+Treinamento de Modelos: Modelos de machine learning são desenvolvidos e treinados no ambiente do Google Colab usando dados históricos para classificar os títulos de filmes.
+
+Integração com a Plataforma: Os modelos treinados são integrados à plataforma de streaming, permitindo que novos títulos sejam categorizados automaticamente à medida que são adicionados à biblioteca.
+
+Apresentação Personalizada: Com base nas categorias atribuídas automaticamente, a plataforma pode oferecer uma experiência de usuário personalizada, recomendar conteúdo relacionado e facilitar a navegação.
 
 https://colab.research.google.com/drive/1kxezPd8B52jQMhc_xFVCSvazd-3PURLH?usp=sharing
 https://trello.com/b/QsvjQUz0/requisitos-do-projeto-de-software-an%C3%A1lise-de-dados
