@@ -1,10 +1,11 @@
 import matplotlib.pyplot as plt
 
 # Valores de precisão originais
-accuracies = [18721.63, 18744.26, 18746.28, 18749.58, 18751.24, 18753.65, 18756.33, 18758.50, 18759.88, 18760.85]
+accuracies = [1276.09, 1295.97, 1296.39, 1296.65, 1296.79, 1297.04, 1297.24, 1297.41, 1297.60, 1297.82]
 
 # Números de épocas
 epochs = list(range(1, 11))  # Número de épocas
+
 
 max_accuracy = max(accuracies)
 min_accuracy = min(accuracies)
