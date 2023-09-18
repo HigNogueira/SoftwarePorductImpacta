@@ -1,4 +1,4 @@
-# SoftwareProductDtaAnalysis
+# Software Product Streaming Data Analysis
 ALUNO: HIGOR NOGUEIRA SOUZA 
 PROFISSÃO: ENGENHEIRO DE DADOS / MACHINE LEARNING
 MATRÍCULA:1904220
