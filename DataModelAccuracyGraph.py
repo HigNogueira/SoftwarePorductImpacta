@@ -1,3 +1,4 @@
+
 import matplotlib.pyplot as plt
 
 # Valores de precisão originais
